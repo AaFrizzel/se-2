@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.io.IOException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
 
 import de.freerider.datamodel.Customer;
 import de.freerider.repository.CustomerRepository;
@@ -26,7 +25,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 
-@RestController 
+//@RestController 
 class CustomersController implements CustomersAPI {
 
     @Autowired

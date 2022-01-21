@@ -67,7 +67,7 @@ public class CustomerRepository implements CrudRepository<Customer, Long> {
     /**
 	 * Returns whether an entity with the given id exists.
 	 *
-	 * @param id must not be {@literal null}.
+	 * @param customer must not be {@literal null}.
 	 * @return {@literal true} if an entity with the given id exists, {@literal false} otherwise.
 	 * @throws IllegalArgumentException if {@literal id} is {@literal null}.
 	 */
@@ -218,5 +218,6 @@ public class CustomerRepository implements CrudRepository<Customer, Long> {
         savedCustomers.clear();
         
     }
+
     
 }

@@ -1,0 +1,52 @@
+1.) Beantworten Sie die folgenden Fragen: 
+
+a) Was ist eine Transaktion? 
+	Eine TA ist eine oder mehrere Operationen, weche entweder vollst. ausgeführt wird, oder garnicht.
+
+b) Was bedeutet die ACID-Eigenschaft für relationale Datenbanken? 
+	Atomicity - Unteilbar, bzw. ganz oder garnicht prinzip.
+	consistency - Keine widersprüchlichen Daten dürfen abgespeichert werden, z.B. Integrität der Schlüssel.
+	isolation - Alle Operationen können gleichzeitig benutzt werden und führen zu einem konsistenten Zustand der DB
+				Durch atomicity Eigenschaft können keine halben TA's durchgeführt werden, somit werden bei gleichzeitiger
+				Ausführung im Grunde alle als atomar definierten Operationen unabhängig von der Reihenfolge zu einem 
+				konsistenten Zustand führen (jedoch spielt die Reihenfolge für das Ergebnis eine Rolle).
+	durability - Eine Abgeschlossene TA (committed) ist nun für immer in dieser DB gespeichert, bis die DB gelöscht wird.
+	
+c) Was ist ein DB-Schema? 
+	Ein Datenbankschema ist die Verknüpfung der Attribute mit der Logik, welche durch eine SQL Sprache ausgedrückt wird.
+	Es ist also die logische Definition der Zusammenhänge zwischen den in der DB enthaltenen Relationen zueinander und mit 
+	ihren Attributen.
+	
+d) Nennen Sie je 3 Namen von relationalen und nicht-relationalen DB Systemen. Nennen Sie die 
+primären Datenformate für die genannten nicht-relationalen DB Systeme. 
+	MySQL
+	PostgresSQL
+	Oracle-DB
+	JSON-Dokumente: MongoDB
+	Key-Value Paare: Redis 
+	Graphen: neo4j 
+
+e) Geben Sie das SQL-Statement für eine DB-Abfrage an, die aus einer Tabelle CUSTOMER einen 
+Kunden mit einem ID: 4 findet (siehe: https://www.w3schools.com/sql). 
+	Select * From RelationName where ID = 4
+
+f) Geben Sie das SQL-Statement an, um eine Tabelle CUSTOMER zu definieren mit Attributen: 
+‐ ID: long (primary key), 
+‐ NAME (String), 
+‐ CONTACT (String), 
+‐ LAST_LOGIN (Datum, Zeit). 
+
+	create table CUSTOMER(
+		ID int NOT NULL,
+		NAME varchar(255),
+		CONTACT varchar(255),
+		LAST_LOGIN timestamp,
+		PRIMARY KEY (ID)
+		);
+
+g) Geben Sie ein SQL-Statement an, um einen neuen Kunden in die DB zu speichern. 
+	Insert into CUSTOMER (ID, NAME, CONTACT, LAST_LOGIN)
+	values (1, 'Aaron Friesel', 'aaron.friesel@gmail.com');
+
+h) Geben Sie das SQL-Statement an, das den Kunden mit ID: 4 in der DB löscht.
+	Delete from CUSTOMER where ID = 4;

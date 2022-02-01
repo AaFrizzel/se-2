@@ -2,6 +2,13 @@ package de.freerider.datamodel;
 
 import java.util.*;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 
 /**
  * Class for entity type Customer. Customer is an individual who acts as holder of a business relationship.
@@ -10,32 +17,40 @@ import java.util.*;
  * @version "0.1.0"
  * @author sgra64
  */
-
+@Entity
+@Table(name = "CUSTOMER")
 public class Customer {
 
     /**
      * id attribute, {@code < 0} invalid, can be set only once.
      */
+    @Id//Primary Key
+    @Column(name = "ID")
     private long id = -1;
 
     /**
      * surname, never null, mapped to "" when empty.
      */
+    @Column(name = "NAME")
     private String lastName = "";
 
     /**
      * none-surname name parts, never null, mapped to "" when empty.
      */
+    @Column(name = "FIRST_NAME")
     private String firstName = "";
 
     /**
      * contact information with multiple contact entries.
      */
+    @Transient
     public List<String> contacts = new ArrayList<String>();
 
     /**
      * status information of a Customer.
      */
+    @Column(name = "STATUS")
+    @Enumerated
     private Status status = Status.New;
 
 

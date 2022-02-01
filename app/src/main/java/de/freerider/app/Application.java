@@ -3,22 +3,26 @@ package de.freerider.app;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.event.EventListener;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import de.freerider.datamodel.Customer;
 import de.freerider.repository.CustomerRepository;
 
+// tell Spring where to scan for @Repository's 
+@EnableJpaRepositories( basePackages = { "de.freerider.repository" } ) 
+// tell Spring where to scan for @Entity's 
+@EntityScan( basePackages = { "de.freerider.datamodel" } ) 
+// tell Spring where to scan for @Components, @Controllers, @Services 
+@ComponentScan( basePackages = { "de.freerider.restapi" } ) 
 @SpringBootApplication
-@ComponentScan(
-// launch Controllers from package: de.freerider.restapi
-basePackages = { "de.freerider.restapi", "de.freerider.repository" }
-)
 public class Application {
 
-@Autowired
-private CustomerRepository customerRepository;
+	@Autowired
+	private CustomerRepository customerRepository;
 
 
 public static void main(String[] args) {
@@ -35,7 +39,8 @@ public void runAfterSpringStartup(){
         .setId(1)
         .setName( "Eric", "Meyer" )
 		.addContact( "eric98@yahoo.com" )
-		.addContact( "(030) 3945-642298" ));
+		.addContact( "(030) 3945-642298" )
+		.addContact("0032 33999"));
 		
 		customerRepository.save(new Customer()
         .setId(2)
@@ -51,9 +56,6 @@ public void runAfterSpringStartup(){
 		long count = customerRepository.count();
 		System.out.println("repository<Customer> with: " + count + " entries");
 
-		Customer eric = customerRepository.findById((long) 1).get();
-		eric.addContact("0032 33999");
-		customerRepository.save(eric);
 
 }
 

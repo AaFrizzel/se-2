@@ -137,7 +137,7 @@ class CustomersController implements CustomersAPI {
 			}else{
 				//check if current newId has been used before & set correct ID
 				if(newId == null){
-				newId = Collections.max(customerRepository.savedCustomers.keySet());
+				newId = Collections.max(((Map<Long, Customer>) customerRepository.findAll()).keySet());
 				customer.setId(newId+2).setName(name, first);
 				newId= newId+2;
 				}else{
@@ -166,7 +166,7 @@ class CustomersController implements CustomersAPI {
 		
 		ArrayNode arrayNode = objectMapper.createArrayNode();
 		
-		CustomerRepository.savedCustomers.forEach((k, c) -> {
+		((Map<Long, Customer>) customerRepository.findAll()).forEach((k, c) -> {
 			StringBuffer sb = new StringBuffer();
 			c.contacts.forEach( contact -> sb.append( sb.length()==0? "" : "; " ).append( contact ) );
 			arrayNode.add(

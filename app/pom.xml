@@ -11,12 +11,14 @@
 	<groupId>de.freerider</groupId>
 	<artifactId>se2.freerider-application</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
+	
 	<name>app</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>

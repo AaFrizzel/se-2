@@ -258,8 +258,45 @@ class CustomersController implements CustomersAPI {
 	
 	@Override
 	public ResponseEntity<List<?>> putCustomers(Map<String, Object>[] jsonMap) {
-		// TODO Auto-generated method stub
-		return null;
+		System.err.println( "heloohkjkk bdkfmiemie" ); 
+		System.err.println( "PUT /customers" );
+
+		Map<String, Object> jsonMapData = new HashMap<>();
+		ArrayList<Optional<Customer>> optCustLi = new ArrayList<>();
+
+		System.out.println( "[{" );
+		for( Map<String, Object> kvpairs : jsonMap ) {
+		    kvpairs.keySet().forEach( key -> {
+		    Object value = kvpairs.get( key );
+		    System.out.println( "  [ " + key + ", " + value + " ]" );
+		    jsonMapData.put(key, value);	
+		    });
+
+			Optional<Customer> customer = accept(jsonMapData);
+			optCustLi.add(customer);
+		}
+		System.out.println( "}]" );
+		//process all opt. Customer Objects
+		for(Optional<Customer> c : optCustLi){
+		if(c.isEmpty()){
+			System.err.println("Status 400 (bad request) - empty customer object");
+
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}else{
+			Customer custObj = c.get();
+			//check if ID already exists
+			if(customerRepository.existsById(custObj.getId())) {
+
+				customerRepository.deleteById(custObj.getId());
+				customerRepository.save(custObj);
+			}else{
+				System.err.println("Status 404 (not found)");
+			return new ResponseEntity<>( null, HttpStatus.NOT_FOUND );  // status 202
+			}
+		}
+	}
+	return new ResponseEntity<>( null, HttpStatus.ACCEPTED); 
+
 	}
 	@Override
 	public ResponseEntity<?> deleteCustomer(long id) {

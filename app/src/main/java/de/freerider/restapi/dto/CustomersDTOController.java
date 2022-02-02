@@ -93,13 +93,28 @@ public ResponseEntity<List<CustomerDTO>> putCustomers(@RequestBody List<Customer
 // TODO: replace by logger 
   System.err.println( request.getMethod() + " " + request.getRequestURI() ); 
   // 
+  ArrayList<CustomerDTO> notFoundLi = new ArrayList<>();
+
   dtos.stream().forEach( dto -> { 
 
     dto.print(); 
     Optional<Customer> customerOpt = dto.create(); 
     CustomerDTO.print( customerOpt ); 
+    Customer customer = customerOpt.get();
+    if(customerRepository.existsById(customer.getId())){
+        customerRepository.deleteById(customer.getId());
+        customerRepository.save(customer);
+    }else{
+
+        notFoundLi.add(dto);
+    }
   }); 
+    if(notFoundLi.size() == 0){
   return new ResponseEntity<>( null, HttpStatus.ACCEPTED ); 
+    }else{
+        System.err.println("Status 404 (not found)");
+			return new ResponseEntity<>( notFoundLi, HttpStatus.NOT_FOUND );  // status 202
+    }
 }
 
 /**
